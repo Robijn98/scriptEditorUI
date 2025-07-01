@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "scripteditorpanel.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     scriptEditorDock = new ScriptEditorPanel(this);
     addDockWidget(Qt::BottomDockWidgetArea, scriptEditorDock);
+
 
 }
 

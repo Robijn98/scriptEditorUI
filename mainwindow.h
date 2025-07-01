@@ -3,6 +3,7 @@
 
 #include "scripteditorpanel.h"
 
+
 #include <QMainWindow>
 #include <QFile>
 #include <QTextStream>
@@ -35,6 +36,7 @@ private:
 
     QString currentFile = "";
     ScriptEditorPanel *scriptEditorDock;
+
 };
 
 #endif // MAINWINDOW_H

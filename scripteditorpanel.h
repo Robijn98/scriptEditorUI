@@ -1,5 +1,7 @@
 #pragma once
 
+#include "highlighter.h"
+
 #include <QDockWidget>
 #include <QTextEdit>
 #include <QToolButton>
@@ -23,4 +25,5 @@ private slots:
 
 private:
     QTextEdit *editor;
+    Highlighter *highlighter;
 };

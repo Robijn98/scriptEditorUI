@@ -41,6 +41,7 @@ else()
             ${PROJECT_SOURCES}
             Resources.qrc
             scripteditorpanel.h scripteditorpanel.cpp scripteditorpanel.ui
+            highlighter.h highlighter.cpp
 
 
         )

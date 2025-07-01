@@ -15,6 +15,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     // Header Layout
     QHBoxLayout *headerLayout = new QHBoxLayout;
 
+
     QToolButton *fileButton = new QToolButton();
     fileButton->setText("File");
     QMenu *fileMenu = new QMenu();
@@ -53,6 +54,9 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 
     container->setLayout(mainLayout);
     this->setWidget(container);
+
+    //add highlighter
+    highlighter = new Highlighter(editor->document());
 }
 
 
