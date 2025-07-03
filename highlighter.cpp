@@ -11,17 +11,17 @@ Highlighter::Highlighter(QTextDocument *parent)
 
     //different lists for python highlighting
     std::list<QString> pythonKeywords = {
-        QStringLiteral("and"), QStringLiteral("assert"), QStringLiteral("break"),
-        QStringLiteral("class"), QStringLiteral("continue"), QStringLiteral("def"),
-        QStringLiteral("del"), QStringLiteral("elif"), QStringLiteral("else"),
-        QStringLiteral("except"), QStringLiteral("exec"), QStringLiteral("finally"),
-        QStringLiteral("for"), QStringLiteral("from"), QStringLiteral("global"),
-        QStringLiteral("if"), QStringLiteral("import"), QStringLiteral("in"),
-        QStringLiteral("is"), QStringLiteral("lambda"), QStringLiteral("not"),
-        QStringLiteral("or"), QStringLiteral("pass"), QStringLiteral("print"),
-        QStringLiteral("raise"), QStringLiteral("return"), QStringLiteral("try"),
-        QStringLiteral("while"), QStringLiteral("yield"), QStringLiteral("None"),
-        QStringLiteral("True"), QStringLiteral("False")
+        QStringLiteral("\\band\\b"), QStringLiteral("\\bassert\\b"), QStringLiteral("\\bbreak\\b"),
+        QStringLiteral("\\bclass\\b"), QStringLiteral("\\bcontinue\\b"), QStringLiteral("\\bdef\\b"),
+        QStringLiteral("\\bdel\\b"), QStringLiteral("\\belif\\b"), QStringLiteral("\\belse\\b"),
+        QStringLiteral("\\bexcept\\b"), QStringLiteral("\\bexec\\b"), QStringLiteral("\\bfinally\\b"),
+        QStringLiteral("\\bfor\\b"), QStringLiteral("\\bfrom\\b"), QStringLiteral("\\bglobal\\b"),
+        QStringLiteral("\\bif\\b"), QStringLiteral("\\bimport\\b"), QStringLiteral("\\bin\\b"),
+        QStringLiteral("\\bis\\b"), QStringLiteral("\\blambda\\b"), QStringLiteral("\\bnot\\b"),
+        QStringLiteral("\\bor\\b"), QStringLiteral("\\bpass\\b"), QStringLiteral("\\bprint\\b"),
+        QStringLiteral("\\braise\\b"), QStringLiteral("\\breturn\\b"), QStringLiteral("\\btry\\b"),
+        QStringLiteral("\\bwhile\\b"), QStringLiteral("\\byield\\b"), QStringLiteral("\\bNone\\b"),
+        QStringLiteral("\\bTrue\\b"), QStringLiteral("\\bFalse\\b")
     };
 
 
@@ -34,7 +34,6 @@ Highlighter::Highlighter(QTextDocument *parent)
         rule.format = keywordFormat;
         highlightingRules.append(rule);
     }
-
 
     //highlight cmds words
     keywordFormat.setForeground(QColor(255, 134, 50));
@@ -50,32 +49,26 @@ Highlighter::Highlighter(QTextDocument *parent)
         highlightingRules.append(rule);
     }
 
-    classFormat.setFontWeight(QFont::Bold);
-    classFormat.setForeground(Qt::darkMagenta);
-    rule.pattern = QRegularExpression(QStringLiteral("\\bQ[A-Za-z]+\\b"));
-    rule.format = classFormat;
-    highlightingRules.append(rule);
-
-    quotationFormat.setForeground(Qt::darkGreen);
+    //quotation highlighting aka string
+    quotationFormat.setForeground(QColor(206, 131, 77));
     rule.pattern = QRegularExpression(QStringLiteral("\".*\""));
     rule.format = quotationFormat;
     highlightingRules.append(rule);
 
-    functionFormat.setFontItalic(true);
-    functionFormat.setForeground(Qt::blue);
-    rule.pattern = QRegularExpression(QStringLiteral("\\b[A-Za-z0-9_]+(?=\\()"));
-    rule.format = functionFormat;
-    highlightingRules.append(rule);
 
-    singleLineCommentFormat.setForeground(Qt::red);
-    rule.pattern = QRegularExpression(QStringLiteral("//[^\n]*"));
+    //single commented out
+    singleLineCommentFormat.setForeground(QColor(106, 153, 85));
+    rule.pattern = QRegularExpression(QStringLiteral("#[^\n]*"));
     rule.format = singleLineCommentFormat;
     highlightingRules.append(rule);
 
+
     multiLineCommentFormat.setForeground(Qt::red);
 
-    commentStartExpression = QRegularExpression(QStringLiteral("/\\*"));
-    commentEndExpression = QRegularExpression(QStringLiteral("\\*/"));
+    commentStartExpression = QRegularExpression(QStringLiteral("'''"));
+    commentEndExpression = QRegularExpression(QStringLiteral("\'''"));
+
+
 }
 
 void Highlighter::highlightBlock(const QString &text)
@@ -106,23 +99,20 @@ void Highlighter::highlightBlock(const QString &text)
         setFormat(startIndex, commentLength, multiLineCommentFormat);
         startIndex = text.indexOf(commentStartExpression, startIndex + commentLength);
     }
+
+
+
 }
+
+
+
+
 
 //read txt files into lists
 std::list<QString> Highlighter::convertToList(std::string filename, std::string listname)
 {
     std::list<QString> listOut;
 
-    // if(!std::filesystem::exists(filename))
-    // {
-    //     if(std::filesystem::is_empty(filename))
-    //     {
-    //         std::cerr << "empty file\n" ;
-    //         return listOut;
-    //     }
-
-    //     return listOut;
-    // }
 
     std::string line;
     std::ifstream file(filename);
@@ -130,8 +120,10 @@ std::list<QString> Highlighter::convertToList(std::string filename, std::string 
     while (std::getline(file, line))
     {
         QString qline = QString::fromStdString(line);
-        if (!qline.trimmed().isEmpty()) {
-            listOut.push_back(qline);
+        if (!qline.trimmed().isEmpty())
+        {
+            QString wrapped = QStringLiteral("\\b%1\\b").arg(qline);
+            listOut.push_back(wrapped);
         }
     }
 

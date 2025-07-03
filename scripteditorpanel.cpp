@@ -15,7 +15,6 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     // Header Layout
     QHBoxLayout *headerLayout = new QHBoxLayout;
 
-
     QToolButton *fileButton = new QToolButton();
     fileButton->setText("File");
     QMenu *fileMenu = new QMenu();
@@ -57,8 +56,53 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 
     //add highlighter
     highlighter = new Highlighter(editor->document());
-}
 
+    // style
+
+    //overall
+    container->setStyleSheet(
+        "color:#fff5fb;"
+        "background-color:#1f1f1f;"
+        "selection-color:#fff5fb;"
+        "selection-background-color: #f5a9d6;"
+    );
+
+    //buttons
+    editButton->setStyleSheet(
+        "background-color:black;"
+        "border-style: outset;"
+        "border-width: 2px;"
+        "border-radius: 5px;"
+        "border-color: beige;"
+        "font: bold 14px;"
+        "min-width: 5em;"
+        "padding: 6px;"
+    );
+
+    fileButton->setStyleSheet(
+        "background-color:black;"
+        "border-style: outset;"
+        "border-width: 2px;"
+        "border-radius: 5px;"
+        "border-color: beige;"
+        "font: bold 14px;"
+        "min-width: 5em;"
+        "padding: 6px;"
+    );
+
+    //menu
+    editMenu->setStyleSheet(
+        "color:#fff5fb;"
+        "background-color:black;"
+    );
+
+    fileMenu->setStyleSheet(
+        "color:#fff5fb;"
+        "background-color:black;"
+        );
+
+
+}
 
 //menu items
 void ScriptEditorPanel::newFile()
