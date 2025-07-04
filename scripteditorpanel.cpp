@@ -34,7 +34,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     editButton->setMenu(editMenu);
     editButton->setPopupMode(QToolButton::InstantPopup);
 
-    //set layout
+    //set layout header
     fileButton->setMinimumWidth(80);
     editButton->setMinimumWidth(80);
 
@@ -44,22 +44,24 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     headerLayout->addStretch();
 
     // Editor
-    editor = new QTextEdit(container);
+    editor = new CodeEditor(container);
 
     // Main Layout inside container widget
     QVBoxLayout *mainLayout = new QVBoxLayout(container);
+
+
     mainLayout->addLayout(headerLayout);
     mainLayout->addWidget(editor);
 
+
     container->setLayout(mainLayout);
     this->setWidget(container);
+
 
     //add highlighter
     highlighter = new Highlighter(editor->document());
 
     // style
-
-    //overall
     container->setStyleSheet(
         "color:#fff5fb;"
         "background-color:#1f1f1f;"
@@ -73,7 +75,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
         "border-style: outset;"
         "border-width: 2px;"
         "border-radius: 5px;"
-        "border-color: beige;"
+        "border-color: #e36db4;"
         "font: bold 14px;"
         "min-width: 5em;"
         "padding: 6px;"
@@ -84,7 +86,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
         "border-style: outset;"
         "border-width: 2px;"
         "border-radius: 5px;"
-        "border-color: beige;"
+        "border-color: #e36db4;"
         "font: bold 14px;"
         "min-width: 5em;"
         "padding: 6px;"
@@ -93,12 +95,12 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     //menu
     editMenu->setStyleSheet(
         "color:#fff5fb;"
-        "background-color:black;"
+        "background-color:#e36db4;"
     );
 
     fileMenu->setStyleSheet(
         "color:#fff5fb;"
-        "background-color:black;"
+        "background-color:#e36db4;"
         );
 
 
@@ -157,3 +159,5 @@ void ScriptEditorPanel::cut()
 {
     editor->cut();
 }
+
+

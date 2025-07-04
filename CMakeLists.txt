@@ -42,6 +42,9 @@ else()
             Resources.qrc
             scripteditorpanel.h scripteditorpanel.cpp scripteditorpanel.ui
             highlighter.h highlighter.cpp
+            linenumber.h linenumber.cpp linenumber.ui
+            scripteditor.h scripteditor.cpp scripteditor.ui
+
 
 
 
