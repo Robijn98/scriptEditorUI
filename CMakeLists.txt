@@ -17,6 +17,18 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        highlighter.cpp
+        highlighter.h
+        linenumber.cpp
+        linenumber.h
+        linenumber.ui
+        scripteditor.cpp
+        scripteditor.h
+        scripteditor.ui
+        scripteditorpanel.cpp
+        scripteditorpanel.h
+        scripteditorpanel.ui
+        
 
 )
 
