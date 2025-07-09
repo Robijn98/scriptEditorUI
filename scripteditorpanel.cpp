@@ -1,4 +1,8 @@
 #include "scripteditorpanel.h"
+#include "commandlist.h"
+
+#include <iostream>
+
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -6,6 +10,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QApplication>
+#include <QSplitter>
 
 ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     : QDockWidget(parent)
@@ -18,40 +23,64 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     QToolButton *fileButton = new QToolButton();
     fileButton->setText("File");
     QMenu *fileMenu = new QMenu();
-    fileMenu->addAction("New", this, &ScriptEditorPanel::newFile);
-    fileMenu->addAction("Open", this, &ScriptEditorPanel::openFile);
-    fileMenu->addAction("Save as", this, &ScriptEditorPanel::saveFile);
+    fileMenu->addAction("New script", this, &ScriptEditorPanel::newFile);
+    fileMenu->addAction("Open script", this, &ScriptEditorPanel::openFile);
+    fileMenu->addAction("Save script as", this, &ScriptEditorPanel::saveFile);
     fileMenu->addAction("Exit", this, &ScriptEditorPanel::exitApp);
     fileButton->setMenu(fileMenu);
     fileButton->setPopupMode(QToolButton::InstantPopup);
 
-    QToolButton *editButton = new QToolButton();
-    editButton->setText("Edit");
-    QMenu *editMenu = new QMenu();
-    editMenu->addAction("Copy", this, &ScriptEditorPanel::copy);
-    editMenu->addAction("Paste", this, &ScriptEditorPanel::paste);
-    editMenu->addAction("Cut", this, &ScriptEditorPanel::cut);
-    editButton->setMenu(editMenu);
-    editButton->setPopupMode(QToolButton::InstantPopup);
+    QToolButton *commandButton = new QToolButton();
+    commandButton->setText("Commands");
+    QMenu *commandMenu = new QMenu();
+    commandMenu->addAction("Add new", this, &ScriptEditorPanel::temp);
+    commandMenu->addAction("Edit excisting", this, &ScriptEditorPanel::temp);
+    commandMenu->addAction("Rename", this, &ScriptEditorPanel::temp);
+    commandMenu->addAction("Remove", this, &ScriptEditorPanel::temp);
+    commandButton->setMenu(commandMenu);
+    commandButton->setPopupMode(QToolButton::InstantPopup);
+
+    QToolButton *templateButton = new QToolButton();
+    templateButton->setText("Templates");
+    QMenu *templateMenu = new QMenu();
+    templateMenu->addAction("Load Template", this, &ScriptEditorPanel::temp);
+    templateMenu->addAction("Add Template", this, &ScriptEditorPanel::temp);
+    templateMenu->addAction("Edit Template", this, &ScriptEditorPanel::temp);
+    templateMenu->addAction("Remove Template", this, &ScriptEditorPanel::temp);
+    templateButton->setMenu(templateMenu);
+    templateButton->setPopupMode(QToolButton::InstantPopup);
+
 
     //set layout header
     fileButton->setMinimumWidth(80);
-    editButton->setMinimumWidth(80);
+    commandButton->setMinimumWidth(80);
+    templateButton->setMinimumWidth(80);
 
     headerLayout->addWidget(fileButton);
-    headerLayout->addWidget(editButton);
+    headerLayout->addWidget(commandButton);
+    headerLayout->addWidget(templateButton);
 
     headerLayout->addStretch();
 
     // Editor
     editor = new CodeEditor(container);
 
+
+    //CommandBox
+    QSplitter *scriptEditorSplitter = new QSplitter;
+    commandList = new CommandList();
+
+    scriptEditorSplitter->addWidget(commandList);
+    scriptEditorSplitter->addWidget(editor);
+    scriptEditorSplitter->setSizes({75,250});
+
+
     // Main Layout inside container widget
     QVBoxLayout *mainLayout = new QVBoxLayout(container);
 
 
     mainLayout->addLayout(headerLayout);
-    mainLayout->addWidget(editor);
+    mainLayout->addWidget(scriptEditorSplitter);
 
 
     container->setLayout(mainLayout);
@@ -70,35 +99,52 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     );
 
     //buttons
-    editButton->setStyleSheet(
+    commandButton->setStyleSheet(
         "background-color:black;"
-        "border-style: outset;"
+        "border-style: solid;"
         "border-width: 2px;"
         "border-radius: 5px;"
         "border-color: #e36db4;"
         "font: bold 14px;"
-        "min-width: 5em;"
+        "min-width: 6em;"
         "padding: 6px;"
     );
 
     fileButton->setStyleSheet(
         "background-color:black;"
-        "border-style: outset;"
+        "border-style: solid;"
         "border-width: 2px;"
         "border-radius: 5px;"
         "border-color: #e36db4;"
         "font: bold 14px;"
-        "min-width: 5em;"
+        "min-width: 6em;"
         "padding: 6px;"
     );
 
+    templateButton->setStyleSheet(
+        "background-color:black;"
+        "border-style: solid;"
+        "border-width: 2px;"
+        "border-radius: 5px;"
+        "border-color: #e36db4;"
+        "font: bold 14px;"
+        "min-width: 6em;"
+        "padding: 6px;"
+        );
+
     //menu
-    editMenu->setStyleSheet(
+    commandMenu->setStyleSheet(
         "color:#fff5fb;"
         "background-color:#e36db4;"
     );
 
     fileMenu->setStyleSheet(
+        "color:#fff5fb;"
+        "background-color:#e36db4;"
+        );
+
+
+    templateMenu->setStyleSheet(
         "color:#fff5fb;"
         "background-color:#e36db4;"
         );
@@ -145,19 +191,12 @@ void ScriptEditorPanel::exitApp()
     QApplication::quit();
 }
 
-void ScriptEditorPanel::copy()
+
+void ScriptEditorPanel::temp()
 {
-    editor->copy();
+    std::cout<<"temporary defintion/n";
 }
 
-void ScriptEditorPanel::paste()
-{
-    editor->paste();
-}
 
-void ScriptEditorPanel::cut()
-{
-    editor->cut();
-}
 
 

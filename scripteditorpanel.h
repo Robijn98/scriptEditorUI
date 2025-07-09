@@ -2,6 +2,7 @@
 
 #include "highlighter.h"
 #include "scripteditor.h"
+#include "commandlist.h"
 #include <QDockWidget>
 #include <QTextEdit>
 #include <QToolButton>
@@ -19,13 +20,15 @@ private slots:
     void openFile();
     void saveFile();
     void exitApp();
-    void copy();
-    void paste();
-    void cut();
+    // void copy();
+    // void paste();
+    // void cut();
+    void temp();
 
 private:
     CodeEditor *editor;
     Highlighter *highlighter;
+    CommandList *commandList;
 
 };
 

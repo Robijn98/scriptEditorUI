@@ -3,6 +3,7 @@
 
 #include <QPainter>
 
+
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
@@ -15,7 +16,17 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 
 }
 
-int CodeEditor::lineNumberAreaWidth()
+
+QSize CodeEditor::sizeHint() const
+{
+    QSize hint = QPlainTextEdit::sizeHint();
+    hint.setWidth(hint.width() * 2 + lineNumberAreaWidth());
+    return hint;
+
+}
+
+
+int CodeEditor::lineNumberAreaWidth() const
 {
     int digits = 1;
     int max = qMax(1, blockCount());
