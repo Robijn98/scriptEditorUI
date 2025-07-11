@@ -56,6 +56,7 @@ else()
             linenumber.h linenumber.cpp linenumber.ui
             scripteditor.h scripteditor.cpp scripteditor.ui
             commandlist.h commandlist.cpp commandlist.ui
+            newcommand.h newcommand.cpp newcommand.ui
 
 
 

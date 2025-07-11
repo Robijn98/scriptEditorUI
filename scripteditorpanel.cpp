@@ -20,6 +20,8 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     // Header Layout
     QHBoxLayout *headerLayout = new QHBoxLayout;
 
+    commandList = new CommandList();
+
     QToolButton *fileButton = new QToolButton();
     fileButton->setText("File");
     QMenu *fileMenu = new QMenu();
@@ -33,8 +35,12 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     QToolButton *commandButton = new QToolButton();
     commandButton->setText("Commands");
     QMenu *commandMenu = new QMenu();
-    commandMenu->addAction("Add new", this, &ScriptEditorPanel::temp);
+    commandMenu->addAction("Add new", this, &ScriptEditorPanel::newCommand);
     commandMenu->addAction("Edit excisting", this, &ScriptEditorPanel::temp);
+
+    QAction* editAction = commandMenu->addAction("Refresh");
+    connect(editAction, &QAction::triggered, commandList, &CommandList::refreshList);
+
     commandMenu->addAction("Rename", this, &ScriptEditorPanel::temp);
     commandMenu->addAction("Remove", this, &ScriptEditorPanel::temp);
     commandButton->setMenu(commandMenu);
@@ -68,11 +74,35 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 
     //CommandBox
     QSplitter *scriptEditorSplitter = new QSplitter;
-    commandList = new CommandList();
 
     scriptEditorSplitter->addWidget(commandList);
     scriptEditorSplitter->addWidget(editor);
     scriptEditorSplitter->setSizes({75,250});
+
+    //add the rig command code if it's clicked
+    newcommand = new NewCommand(this);
+
+
+    //HARD-CODED REPLACE FIX
+    QDir dir("C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands");
+
+    connect(commandList, &CommandList::commandSelected, editor, [=](const QString &text) {
+        //check if you still need to append path
+        QString currentText = editor->toPlainText();
+        QString sysImport = QString("sys.path.append('%1')").arg(dir.absolutePath());
+
+        if(!currentText.contains("import sys"))
+            {
+                editor->appendPlainText("import sys");
+            }
+        if(!currentText.contains(sysImport))
+            {
+                editor->appendPlainText(sysImport);
+                editor->appendPlainText("\n");
+            }
+
+        editor->appendPlainText(text);
+    });
 
 
     // Main Layout inside container widget
@@ -149,6 +179,15 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
         "background-color:#e36db4;"
         );
 
+    commandList->setStyleSheet(
+        "QListWidget::item:selected {"
+        " background: #eb46a9;"
+        " border: 1px solid #eb46a9;"
+        "}"
+        "QListWidget::item:hover {"
+        " background-color: #fcd2eb;"
+        "}"
+        );
 
 }
 
@@ -198,5 +237,11 @@ void ScriptEditorPanel::temp()
 }
 
 
+void ScriptEditorPanel::newCommand()
+{
+    newcommand->show();
+    newcommand->raise();
+    newcommand->setFocus();
+}
 
 

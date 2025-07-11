@@ -11,12 +11,18 @@ class CommandList : public QListWidget
 public:
     explicit CommandList(QListWidget *parent = nullptr);
     QSize sizeHint() const override;
+    QString commandDef(QString fileName, QDir dir);
+    void refreshList();
 
 protected:
     std::list<QString> convertToList(QDir dir);
 
+signals:
+    void commandSelected(const QString &commandText);
+
 private:
     void populateList(std::list<QString> commandList);
+    void clearItemsManually();
 
 };
 

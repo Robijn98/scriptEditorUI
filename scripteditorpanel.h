@@ -3,6 +3,8 @@
 #include "highlighter.h"
 #include "scripteditor.h"
 #include "commandlist.h"
+#include "newcommand.h"
+
 #include <QDockWidget>
 #include <QTextEdit>
 #include <QToolButton>
@@ -24,11 +26,13 @@ private slots:
     // void paste();
     // void cut();
     void temp();
+    void newCommand();
 
 private:
     CodeEditor *editor;
     Highlighter *highlighter;
     CommandList *commandList;
+    NewCommand *newcommand;
 
 };
 
