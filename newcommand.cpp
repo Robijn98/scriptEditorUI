@@ -1,5 +1,5 @@
-#include "newcommand.h"
-#include "ui_newcommand.h"
+#include "newCommand.h"
+#include "ui_newCommand.h"
 
 #include <QTextStream>
 #include <QFileDialog>
@@ -54,7 +54,7 @@ void NewCommand::on_saveButton_clicked()
         return;
     }
 
-    // Construct the full file path
+    // FIX PREDEFINED
     QString baseDir = "C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands/";
     QString filePath = baseDir + fileNamed;
 
@@ -78,6 +78,7 @@ void NewCommand::on_saveButton_clicked()
     } else {
         QMessageBox::critical(this, "Error", "Could not open file for writing:\n" + filePath);
     }
+    this->close();
 }
 
 

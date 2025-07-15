@@ -11,25 +11,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        highlighter.cpp
-        highlighter.h
-        linenumber.cpp
-        linenumber.h
-        linenumber.ui
-        scripteditor.cpp
-        scripteditor.h
-        scripteditor.ui
-        scripteditorpanel.cpp
-        scripteditorpanel.h
-        scripteditorpanel.ui
-
+    main.cpp
+    mainWindow.cpp
+    mainWindow.h
+    mainWindow.ui
+    highlighter.cpp
+    highlighter.h
+    lineNumber.cpp
+    lineNumber.h
+    lineNumber.ui
+    scriptEditor.cpp
+    scriptEditor.h
+    scriptEditor.ui
+    scriptEditorPanel.cpp
+    scriptEditorPanel.h
+    scriptEditorPanel.ui
 )
+
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ScriptEditor
@@ -57,6 +56,9 @@ else()
             scripteditor.h scripteditor.cpp scripteditor.ui
             commandlist.h commandlist.cpp commandlist.ui
             newcommand.h newcommand.cpp newcommand.ui
+            editCommand.h editCommand.cpp
+            editCommand.ui
+
 
 
 

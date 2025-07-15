@@ -1,5 +1,5 @@
-#include "linenumber.h"
-#include "scripteditor.h"
+#include "lineNumber.h"
+#include "scriptEditor.h"
 #include <QPainter>
 
 LineNumberArea::LineNumberArea(CodeEditor *editor)

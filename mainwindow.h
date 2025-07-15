@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "scripteditorpanel.h"
+#include "scriptEditorPanel.h"
 
 
 #include <QMainWindow>

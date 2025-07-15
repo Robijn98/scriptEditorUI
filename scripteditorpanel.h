@@ -1,9 +1,10 @@
 #pragma once
 
 #include "highlighter.h"
-#include "scripteditor.h"
-#include "commandlist.h"
-#include "newcommand.h"
+#include "scriptEditor.h"
+#include "commandList.h"
+#include "newCommand.h"
+#include "editCommand.h"
 
 #include <QDockWidget>
 #include <QTextEdit>
@@ -22,17 +23,17 @@ private slots:
     void openFile();
     void saveFile();
     void exitApp();
-    // void copy();
-    // void paste();
-    // void cut();
+
     void temp();
     void newCommand();
+    void editCommand();
 
 private:
     CodeEditor *editor;
     Highlighter *highlighter;
     CommandList *commandList;
     NewCommand *newcommand;
+    EditCommand *editcommand;
 
 };
 

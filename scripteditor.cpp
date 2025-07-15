@@ -1,5 +1,5 @@
-#include "scripteditor.h"
-#include "linenumber.h"
+#include "scriptEditor.h"
+#include "lineNumber.h"
 
 #include <QPainter>
 

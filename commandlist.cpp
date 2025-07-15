@@ -1,8 +1,8 @@
-#include "commandlist.h"
+#include "commandList.h"
 
 #include <QTextStream>
 #include <QRegularExpression>
-
+#include <QInputDialog>
 #include <list>
 
 CommandList::CommandList(QListWidget *parent)
@@ -118,4 +118,30 @@ void CommandList::refreshList()
 
     commandList = convertToList(dir);
     populateList(commandList);
+}
+
+void CommandList::rename()
+{
+    bool ok{};
+    QString newName = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+                                         tr("New name:"), QLineEdit::Normal,
+                                         QDir::home().dirName(), &ok);
+
+    QListWidgetItem *item = this->currentItem();
+        QString oldName = item->text();
+        //FIX
+        QDir dir("C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands");
+        QFile::rename(dir.filePath(oldName + ".py"), dir.filePath(newName + ".py"));
+}
+
+
+
+void CommandList::remove()
+{
+    QListWidgetItem *item = this->currentItem();
+    QString fileName = item->text();
+
+    //FIX
+    QDir dir("C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands");
+    QFile::remove(dir.filePath(fileName + ".py"));
 }

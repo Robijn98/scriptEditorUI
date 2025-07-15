@@ -1,5 +1,5 @@
-#include "scripteditorpanel.h"
-#include "commandlist.h"
+#include "scriptEditorPanel.h"
+#include "commandList.h"
 
 #include <iostream>
 
@@ -35,14 +35,23 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     QToolButton *commandButton = new QToolButton();
     commandButton->setText("Commands");
     QMenu *commandMenu = new QMenu();
-    commandMenu->addAction("Add new", this, &ScriptEditorPanel::newCommand);
-    commandMenu->addAction("Edit excisting", this, &ScriptEditorPanel::temp);
 
-    QAction* editAction = commandMenu->addAction("Refresh");
-    connect(editAction, &QAction::triggered, commandList, &CommandList::refreshList);
+    QAction* addAction = commandMenu->addAction("Add new");
+    connect(addAction, &QAction::triggered, this, &ScriptEditorPanel::newCommand);
 
-    commandMenu->addAction("Rename", this, &ScriptEditorPanel::temp);
-    commandMenu->addAction("Remove", this, &ScriptEditorPanel::temp);
+    commandMenu->addAction("Edit excisting", this, &ScriptEditorPanel::editCommand);
+
+    QAction* renameAction = commandMenu->addAction("Rename");
+    connect(renameAction, &QAction::triggered, commandList, &CommandList::rename);
+    connect(renameAction, &QAction::triggered, commandList, &CommandList::refreshList);
+
+    QAction* removeAction = commandMenu->addAction("Remove");
+    connect(removeAction, &QAction::triggered, commandList, &CommandList::remove);
+    connect(removeAction, &QAction::triggered, commandList, &CommandList::refreshList);
+
+    QAction* refreshAction = commandMenu->addAction("Refresh");
+    connect(refreshAction, &QAction::triggered, commandList, &CommandList::refreshList);
+
     commandButton->setMenu(commandMenu);
     commandButton->setPopupMode(QToolButton::InstantPopup);
 
@@ -103,6 +112,9 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 
         editor->appendPlainText(text);
     });
+
+    //edit command
+    editcommand = new EditCommand(this);
 
 
     // Main Layout inside container widget
@@ -245,3 +257,9 @@ void ScriptEditorPanel::newCommand()
 }
 
 
+void ScriptEditorPanel::editCommand()
+{
+    editcommand->show();
+    editcommand->raise();
+    editcommand->setFocus();
+}

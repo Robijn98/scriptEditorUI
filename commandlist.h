@@ -13,6 +13,8 @@ public:
     QSize sizeHint() const override;
     QString commandDef(QString fileName, QDir dir);
     void refreshList();
+    void rename();
+    void remove();
 
 protected:
     std::list<QString> convertToList(QDir dir);
