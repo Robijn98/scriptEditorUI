@@ -63,6 +63,7 @@ else()
             style.h
 
             resources.qrc
+            buttonBar.h buttonBar.cpp buttonBar.ui
         )
     endif()
 endif()

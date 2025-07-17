@@ -37,6 +37,12 @@ public:
         "image: url(:/icons/icons/checkmark.png);"
         "}";
 
+    inline static QString iconButtonStyle =
+        "background-color: #1f1f1f;"
+        "border-radius: 6px;"
+        "border: 2px solid #e36db4;";
+
+
 };
 
 

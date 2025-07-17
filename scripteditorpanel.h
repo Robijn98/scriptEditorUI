@@ -5,6 +5,7 @@
 #include "commandList.h"
 #include "newCommand.h"
 #include "editCommand.h"
+#include "buttonBar.h"
 
 #include <QDockWidget>
 #include <QTextEdit>
@@ -34,6 +35,7 @@ private:
     CommandList *commandList;
     NewCommand *newcommand;
     EditCommand *editcommand;
+    ButtonBar *buttonbar;
 
 };
 

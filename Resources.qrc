@@ -3,5 +3,10 @@
         <file>icons/checkmark.png</file>
         <file>icons/copy.png</file>
         <file>icons/cut.png</file>
+        <file>icons/clear.png</file>
+        <file>icons/save.png</file>
+        <file>icons/searchReplace.png</file>
+        <file>icons/template.png</file>
+        <file>icons/play.png</file>
     </qresource>
 </RCC>

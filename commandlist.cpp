@@ -125,9 +125,6 @@ QString CommandList::commandDef(QString fileName, QDir dir)
 
 
 
-
-
-
 void CommandList::clearItemsManually()
 {
     while(this->count() > 0) {

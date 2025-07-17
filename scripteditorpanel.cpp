@@ -120,8 +120,12 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     // Main Layout inside container widget
     QVBoxLayout *mainLayout = new QVBoxLayout(container);
 
+    //buttonbar
+    buttonbar = new ButtonBar;
+
 
     mainLayout->addLayout(headerLayout);
+    mainLayout->addWidget(buttonbar);
     mainLayout->addWidget(scriptEditorSplitter);
 
 
@@ -133,12 +137,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     highlighter = new Highlighter(editor->document());
 
     // style
-    container->setStyleSheet(
-        "color:#fff5fb;"
-        "background-color:#1f1f1f;"
-        "selection-color:#fff5fb;"
-        "selection-background-color: #f5a9d6;"
-    );
+    container->setStyleSheet(Style::containerStyle);
 
     //buttons
     commandButton->setStyleSheet(Style::buttonStyle);
@@ -154,15 +153,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 
     templateMenu->setStyleSheet(Style::menuStyle);
 
-    commandList->setStyleSheet(
-        "QListWidget::item:selected {"
-        " background: #eb46a9;"
-        " border: 1px solid #eb46a9;"
-        "}"
-        "QListWidget::item:hover {"
-        " background-color: #fcd2eb;"
-        "}"
-        );
+    commandList->setStyleSheet(Style::listStyle);
 
 }
 
