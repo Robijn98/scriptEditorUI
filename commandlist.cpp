@@ -5,14 +5,15 @@
 #include <QInputDialog>
 #include <list>
 
+#include "Config.h"
+
 CommandList::CommandList(QListWidget *parent)
 : QListWidget(parent)
 
 {
     std::list<QString> commandList;
 
-    //HARD-CODED REPLACE FIX
-    QDir dir("C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands");
+    QDir dir(Config::riggingCommandsPath);
 
     commandList = convertToList(dir);
     populateList(commandList);
@@ -67,7 +68,6 @@ void CommandList::populateList(std::list<QString> commandList)
     }
 }
 
-
 QString CommandList::commandDef(QString fileName, QDir dir)
 {
     QString commandDef;
@@ -78,27 +78,55 @@ QString CommandList::commandDef(QString fileName, QDir dir)
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QString importFile = QString("import %1").arg(fileName);
-        commandDef.push_back((importFile));
-        commandDef.push_back("\n\n");
+        commandDef.append(importFile);
+        commandDef.append("\n\n");
 
         QTextStream in(&file);
+        QStringList lines;
         while (!in.atEnd()) {
-            QString line = in.readLine();
-            QRegularExpressionMatch match = re.match(line);
-            if (match.hasMatch()) {
-                QString funcSignature = match.captured(1);
-                commandDef.push_back(funcSignature);
+            lines.append(in.readLine());
+        }
+
+        bool classAndFunctionFound = false;
+
+        // Check for #CLASS AND FUNCTION block
+        for (int i = 0; i < lines.size() - 1; ++i) {
+            if (lines[i].trimmed() == "#CLASS AND FUNCTION") {
+                QString nextLine = lines[i + 1].trimmed();
+                if (nextLine.startsWith("#") && nextLine.contains("(") && nextLine.contains(")")) {
+                    QString functionCall = nextLine.mid(1).trimmed(); // remove '#'
+                    commandDef.append(functionCall + "\n\n");
+                    classAndFunctionFound = true;
+                    break; // stop after first match
+                }
             }
-            if(line.contains("#INFO"))
-            {
-                commandDef.push_back("\n");
-                commandDef.push_back(line);
+        }
+
+        //Find any info lines
+        for (const QString &line : lines) {
+            if (line.contains("#INFO")) {
+                commandDef.append("\n");
+                commandDef.append(line + "\n");
+            }
+
+            //Look for function definitions if no class was found
+            if (!classAndFunctionFound) {
+                QRegularExpressionMatch match = re.match(line);
+                if (match.hasMatch()) {
+                    QString funcSignature = match.captured(1);
+                    commandDef.append(funcSignature + "\n");
+                }
             }
         }
     }
 
     return commandDef;
 }
+
+
+
+
+
 
 void CommandList::clearItemsManually()
 {
@@ -113,7 +141,7 @@ void CommandList::refreshList()
 {
     clearItemsManually();
     //HARD-CODED REPLACE FIX
-    QDir dir("C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands");
+    QDir dir(Config::riggingCommandsPath);
     std::list<QString> commandList;
 
     commandList = convertToList(dir);
@@ -129,8 +157,8 @@ void CommandList::rename()
 
     QListWidgetItem *item = this->currentItem();
         QString oldName = item->text();
-        //FIX
-        QDir dir("C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands");
+
+        QDir dir(Config::riggingCommandsPath);
         QFile::rename(dir.filePath(oldName + ".py"), dir.filePath(newName + ".py"));
 }
 
@@ -141,7 +169,7 @@ void CommandList::remove()
     QListWidgetItem *item = this->currentItem();
     QString fileName = item->text();
 
-    //FIX
-    QDir dir("C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands");
+
+    QDir dir(Config::riggingCommandsPath);
     QFile::remove(dir.filePath(fileName + ".py"));
 }

@@ -55,6 +55,12 @@ Highlighter::Highlighter(QTextDocument *parent)
     rule.format = quotationFormat;
     highlightingRules.append(rule);
 
+    //quotation highlighting aka string
+    quotationFormat.setForeground(QColor(206, 131, 77));
+    rule.pattern = QRegularExpression(QStringLiteral("\'.*\'"));
+    rule.format = quotationFormat;
+    highlightingRules.append(rule);
+
 
     //single commented out
     singleLineCommentFormat.setForeground(QColor(106, 153, 85));

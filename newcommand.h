@@ -20,6 +20,8 @@ private slots:
 
     void on_cancelButton_clicked();
 
+    void on_classCheckBox_toggled(bool checked);
+
 private:
     Ui::NewCommand *ui;
 };

@@ -27,6 +27,7 @@ set(PROJECT_SOURCES
     scriptEditorPanel.cpp
     scriptEditorPanel.h
     scriptEditorPanel.ui
+
 )
 
 
@@ -49,7 +50,7 @@ else()
     else()
         add_executable(ScriptEditor
             ${PROJECT_SOURCES}
-            Resources.qrc
+
             scripteditorpanel.h scripteditorpanel.cpp scripteditorpanel.ui
             highlighter.h highlighter.cpp
             linenumber.h linenumber.cpp linenumber.ui
@@ -58,11 +59,10 @@ else()
             newcommand.h newcommand.cpp newcommand.ui
             editCommand.h editCommand.cpp
             editCommand.ui
+            config.h
+            style.h
 
-
-
-
-
+            resources.qrc
         )
     endif()
 endif()

@@ -1,5 +1,7 @@
 #include "scriptEditorPanel.h"
 #include "commandList.h"
+#include "config.h"
+#include "style.h"
 
 #include <iostream>
 
@@ -91,9 +93,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     //add the rig command code if it's clicked
     newcommand = new NewCommand(this);
 
-
-    //HARD-CODED REPLACE FIX
-    QDir dir("C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands");
+    QDir dir(Config::riggingCommandsPath);
 
     connect(commandList, &CommandList::commandSelected, editor, [=](const QString &text) {
         //check if you still need to append path
@@ -141,55 +141,18 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     );
 
     //buttons
-    commandButton->setStyleSheet(
-        "background-color:black;"
-        "border-style: solid;"
-        "border-width: 2px;"
-        "border-radius: 5px;"
-        "border-color: #e36db4;"
-        "font: bold 14px;"
-        "min-width: 6em;"
-        "padding: 6px;"
-    );
+    commandButton->setStyleSheet(Style::buttonStyle);
 
-    fileButton->setStyleSheet(
-        "background-color:black;"
-        "border-style: solid;"
-        "border-width: 2px;"
-        "border-radius: 5px;"
-        "border-color: #e36db4;"
-        "font: bold 14px;"
-        "min-width: 6em;"
-        "padding: 6px;"
-    );
+    fileButton->setStyleSheet(Style::buttonStyle);
 
-    templateButton->setStyleSheet(
-        "background-color:black;"
-        "border-style: solid;"
-        "border-width: 2px;"
-        "border-radius: 5px;"
-        "border-color: #e36db4;"
-        "font: bold 14px;"
-        "min-width: 6em;"
-        "padding: 6px;"
-        );
+    templateButton->setStyleSheet(Style::buttonStyle);
 
     //menu
-    commandMenu->setStyleSheet(
-        "color:#fff5fb;"
-        "background-color:#e36db4;"
-    );
+    commandMenu->setStyleSheet(Style::menuStyle);
 
-    fileMenu->setStyleSheet(
-        "color:#fff5fb;"
-        "background-color:#e36db4;"
-        );
+    fileMenu->setStyleSheet(Style::menuStyle);
 
-
-    templateMenu->setStyleSheet(
-        "color:#fff5fb;"
-        "background-color:#e36db4;"
-        );
+    templateMenu->setStyleSheet(Style::menuStyle);
 
     commandList->setStyleSheet(
         "QListWidget::item:selected {"

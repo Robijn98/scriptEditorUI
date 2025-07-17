@@ -4,6 +4,9 @@
 #include <QTextStream>
 #include <QMessageBox>
 
+#include "config.h"
+#include "style.h"
+
 EditCommand::EditCommand(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::EditCommand)
@@ -13,51 +16,17 @@ EditCommand::EditCommand(QWidget *parent)
     this->setStyleSheet(
         "color:#fff5fb;"
         "background-color:#1f1f1f;"
-
-        );
-    ui->cancelButton->setStyleSheet(
-        "background-color:black;"
-        "border-style: solid;"
-        "border-width: 2px;"
-        "border-radius: 5px;"
-        "border-color: #e36db4;"
-        "font: bold 14px;"
-        "min-width: 6em;"
-        "padding: 6px;"
-
-        );
-    ui->saveButton->setStyleSheet(
-        "background-color:black;"
-        "border-style: solid;"
-        "border-width: 2px;"
-        "border-radius: 5px;"
-        "border-color: #e36db4;"
-        "font: bold 14px;"
-        "min-width: 6em;"
-        "padding: 6px;"
-        );
-    ui->saveButton->setStyleSheet(
-        "background-color:black;"
-        "border-style: solid;"
-        "border-width: 2px;"
-        "border-radius: 5px;"
-        "border-color: #e36db4;"
-        "font: bold 14px;"
-        "min-width: 6em;"
-        "padding: 6px;"
         );
 
-    ui->browseButton->setStyleSheet(
-        "background-color:black;"
-        "border-style: solid;"
-        "border-width: 2px;"
-        "border-radius: 5px;"
-        "border-color: #e36db4;"
-        "font: bold 14px;"
-        "min-width: 6em;"
-        "padding: 6px;"
-        );
+    ui->cancelButton->setStyleSheet(Style::buttonStyle);
+
+    ui->saveButton->setStyleSheet(Style::buttonStyle);
+
+    ui->saveButton->setStyleSheet(Style::buttonStyle);
+
+    ui->browseButton->setStyleSheet(Style::buttonStyle);
 }
+
 EditCommand::~EditCommand()
 {
     delete ui;
@@ -65,8 +34,8 @@ EditCommand::~EditCommand()
 
 void EditCommand::on_browseButton_clicked()
 {
-    //FIX PREDEFINED
-    QString fileName = QFileDialog::getOpenFileName(this, "Open File", "C:/Users/robin/OneDrive/Documents/ScriptEditor/riggingCommands/", "All Files (*.*)");
+
+    QString fileName = QFileDialog::getOpenFileName(this, "Open File", Config::riggingCommandsPath, "All Files (*.*)");
     if (!fileName.isEmpty()) {
         ui->label->setText(fileName);
     }
@@ -80,11 +49,9 @@ void EditCommand::on_browseButton_clicked()
 }
 
 
-
 void EditCommand::on_saveButton_clicked()
 {
     QString fileName = ui->label->text();
-    //QString fileName = QFileDialog::getSaveFileName(this, "Save File");
     if (fileName.isEmpty()) return;
     QFile file(fileName);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
