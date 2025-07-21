@@ -25,6 +25,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     editor = new CodeEditor(container);
     commandList = new CommandList();
     editfile = new EditFile(editor);
+    buttonbar = new ButtonBar(editor);
 
     QToolButton *fileButton = new QToolButton();
     fileButton->setText("File");
@@ -74,11 +75,6 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     templateMenu->addAction("Remove Template", this, &ScriptEditorPanel::temp);
     templateButton->setMenu(templateMenu);
     templateButton->setPopupMode(QToolButton::InstantPopup);
-
-    //buttonbar
-    buttonbar = new ButtonBar();
-    // connect(buttonbar
-    // connect(buttonbar->stopButton(), &QPushButton::clicked, buttonbar, &ButtonBar::stopButton);
 
 
 
@@ -130,9 +126,6 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 
     // Main Layout inside container widget
     QVBoxLayout *mainLayout = new QVBoxLayout(container);
-
-    //buttonbar
-    buttonbar = new ButtonBar;
 
     //mainlayout
     mainLayout->addLayout(headerLayout);

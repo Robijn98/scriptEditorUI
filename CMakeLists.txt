@@ -65,6 +65,7 @@ else()
             resources.qrc
             buttonBar.h buttonBar.cpp buttonBar.ui
             editFile.h editFile.cpp
+            searchAndReplace.h searchAndReplace.cpp searchAndReplace.ui
 
         )
     endif()

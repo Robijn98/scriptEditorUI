@@ -57,7 +57,6 @@ public:
         " background-color: #fcd2eb;"
         "}";
 
-
 };
 
 
