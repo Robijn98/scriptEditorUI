@@ -1,5 +1,5 @@
-#include "buttonbar.h"
-#include "ui_buttonbar.h"
+#include "buttonBar.h"
+#include "ui_buttonBar.h"
 
 #include "style.h"
 
@@ -16,7 +16,6 @@ ButtonBar::ButtonBar(QWidget *parent) :
 
 
 
-
 }
 
 
@@ -24,3 +23,4 @@ ButtonBar::~ButtonBar()
 {
     delete ui;
 }
+

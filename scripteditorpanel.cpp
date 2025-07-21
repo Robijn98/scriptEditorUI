@@ -22,15 +22,23 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     // Header Layout
     QHBoxLayout *headerLayout = new QHBoxLayout;
 
+    editor = new CodeEditor(container);
     commandList = new CommandList();
+    editfile = new EditFile(editor);
 
     QToolButton *fileButton = new QToolButton();
     fileButton->setText("File");
     QMenu *fileMenu = new QMenu();
-    fileMenu->addAction("New script", this, &ScriptEditorPanel::newFile);
-    fileMenu->addAction("Open script", this, &ScriptEditorPanel::openFile);
-    fileMenu->addAction("Save script as", this, &ScriptEditorPanel::saveFile);
-    fileMenu->addAction("Exit", this, &ScriptEditorPanel::exitApp);
+
+    fileMenu->addAction("New script", editfile,  &EditFile::newFile);
+
+    fileMenu->addAction("Open script", editfile, &EditFile::openFile);
+
+    fileMenu->addAction("Save script as", editfile, &EditFile::saveFile);
+
+    fileMenu->addAction("Exit", editfile, &EditFile::exitApp);
+
+
     fileButton->setMenu(fileMenu);
     fileButton->setPopupMode(QToolButton::InstantPopup);
 
@@ -67,6 +75,12 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     templateButton->setMenu(templateMenu);
     templateButton->setPopupMode(QToolButton::InstantPopup);
 
+    //buttonbar
+    buttonbar = new ButtonBar();
+    // connect(buttonbar
+    // connect(buttonbar->stopButton(), &QPushButton::clicked, buttonbar, &ButtonBar::stopButton);
+
+
 
     //set layout header
     fileButton->setMinimumWidth(80);
@@ -78,9 +92,6 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     headerLayout->addWidget(templateButton);
 
     headerLayout->addStretch();
-
-    // Editor
-    editor = new CodeEditor(container);
 
 
     //CommandBox
@@ -123,7 +134,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     //buttonbar
     buttonbar = new ButtonBar;
 
-
+    //mainlayout
     mainLayout->addLayout(headerLayout);
     mainLayout->addWidget(buttonbar);
     mainLayout->addWidget(scriptEditorSplitter);
@@ -136,7 +147,8 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     //add highlighter
     highlighter = new Highlighter(editor->document());
 
-    // style
+
+    //--------------------STYLE -----------------------
     container->setStyleSheet(Style::containerStyle);
 
     //buttons
@@ -157,44 +169,6 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 
 }
 
-//menu items
-void ScriptEditorPanel::newFile()
-{
-    editor->clear();
-}
-
-void ScriptEditorPanel::openFile()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, "Open File");
-
-    if (fileName.isEmpty()) return;
-
-    QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QTextStream in(&file);
-        editor->setPlainText(in.readAll());
-        file.close();
-    }
-}
-
-void ScriptEditorPanel::saveFile()
-{
-    QString fileName = QFileDialog::getSaveFileName(this, "Save File");
-    if (fileName.isEmpty()) return;
-    QFile file(fileName);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QTextStream out(&file);
-        out << editor->toPlainText();
-        file.close();
-    }
-}
-
-void ScriptEditorPanel::exitApp()
-{
-    QApplication::quit();
-}
 
 
 void ScriptEditorPanel::temp()

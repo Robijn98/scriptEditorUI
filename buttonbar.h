@@ -1,7 +1,8 @@
-#ifndef BUTTONBAR_H
-#define BUTTONBAR_H
+#pragma once
 
 #include <QWidget>
+#include <QPushButton>
+#include <QToolButton>
 
 namespace Ui {
 class ButtonBar;
@@ -15,8 +16,12 @@ public:
     explicit ButtonBar(QWidget *parent = nullptr);
     ~ButtonBar();
 
+
+private slots:
+    // void on_saveButton_clicked();
+
 private:
     Ui::ButtonBar *ui;
+
 };
 
-#endif // BUTTONBAR_H

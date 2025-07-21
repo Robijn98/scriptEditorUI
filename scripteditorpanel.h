@@ -6,6 +6,7 @@
 #include "newCommand.h"
 #include "editCommand.h"
 #include "buttonBar.h"
+#include "editFile.h"
 
 #include <QDockWidget>
 #include <QTextEdit>
@@ -20,11 +21,6 @@ public:
     explicit ScriptEditorPanel(QWidget *parent = nullptr);
 
 private slots:
-    void newFile();
-    void openFile();
-    void saveFile();
-    void exitApp();
-
     void temp();
     void newCommand();
     void editCommand();
@@ -36,6 +32,7 @@ private:
     NewCommand *newcommand;
     EditCommand *editcommand;
     ButtonBar *buttonbar;
+    EditFile *editfile;
 
 };
 

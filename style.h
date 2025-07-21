@@ -42,6 +42,21 @@ public:
         "border-radius: 6px;"
         "border: 2px solid #e36db4;";
 
+    inline static QString containerStyle =
+        "color:#fff5fb;"
+        "background-color:#1f1f1f;"
+        "selection-color:#fff5fb;"
+        "selection-background-color: #f5a9d6;";
+
+    inline static QString listStyle =
+        "QListWidget::item:selected {"
+        " background: #eb46a9;"
+        " border: 1px solid #eb46a9;"
+        "}"
+        "QListWidget::item:hover {"
+        " background-color: #fcd2eb;"
+        "}";
+
 
 };
 
