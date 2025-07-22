@@ -19,17 +19,27 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 {
     QWidget *container = new QWidget(this);
 
-    // Header Layout
-    QHBoxLayout *headerLayout = new QHBoxLayout;
 
+    // ----------------ADD ALL PARTS ----------------
     editor = new CodeEditor(container);
     commandList = new CommandList();
     editfile = new EditFile(editor);
     buttonbar = new ButtonBar(editor);
+    newcommand = new NewCommand(this);
+    editcommand = new EditCommand(this);
+    highlighter = new Highlighter(editor->document());
 
+    QSplitter *scriptEditorSplitter = new QSplitter;
+
+    // MAIN LAYOUT
+    QHBoxLayout *headerLayout = new QHBoxLayout;
+
+    //-----------------------FILE MENU -----------------------------
     QToolButton *fileButton = new QToolButton();
     fileButton->setText("File");
     QMenu *fileMenu = new QMenu();
+    fileButton->setMenu(fileMenu);
+    fileButton->setPopupMode(QToolButton::InstantPopup);
 
     fileMenu->addAction("New script", editfile,  &EditFile::newFile);
 
@@ -40,12 +50,13 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     fileMenu->addAction("Exit", editfile, &EditFile::exitApp);
 
 
-    fileButton->setMenu(fileMenu);
-    fileButton->setPopupMode(QToolButton::InstantPopup);
+    //----------------------COMMAND MENU -----------------------------
 
     QToolButton *commandButton = new QToolButton();
     commandButton->setText("Commands");
     QMenu *commandMenu = new QMenu();
+    commandButton->setMenu(commandMenu);
+    commandButton->setPopupMode(QToolButton::InstantPopup);
 
     QAction* addAction = commandMenu->addAction("Add new");
     connect(addAction, &QAction::triggered, this, &ScriptEditorPanel::newCommand);
@@ -63,22 +74,25 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     QAction* refreshAction = commandMenu->addAction("Refresh");
     connect(refreshAction, &QAction::triggered, commandList, &CommandList::refreshList);
 
-    commandButton->setMenu(commandMenu);
-    commandButton->setPopupMode(QToolButton::InstantPopup);
 
+    //----------------------TEMPLATE MENU -----------------------------
     QToolButton *templateButton = new QToolButton();
     templateButton->setText("Templates");
     QMenu *templateMenu = new QMenu();
-    templateMenu->addAction("Load Template", this, &ScriptEditorPanel::temp);
-    templateMenu->addAction("Add Template", this, &ScriptEditorPanel::temp);
-    templateMenu->addAction("Edit Template", this, &ScriptEditorPanel::temp);
-    templateMenu->addAction("Remove Template", this, &ScriptEditorPanel::temp);
     templateButton->setMenu(templateMenu);
     templateButton->setPopupMode(QToolButton::InstantPopup);
 
+    templateMenu->addAction("Load Template", this, &ScriptEditorPanel::temp);
+
+    templateMenu->addAction("Add Template", this, &ScriptEditorPanel::temp);
+
+    templateMenu->addAction("Edit Template", this, &ScriptEditorPanel::temp);
+
+    templateMenu->addAction("Remove Template", this, &ScriptEditorPanel::temp);
 
 
-    //set layout header
+    //---------------------- LAYOUT -----------------------------
+
     fileButton->setMinimumWidth(80);
     commandButton->setMinimumWidth(80);
     templateButton->setMinimumWidth(80);
@@ -89,17 +103,22 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 
     headerLayout->addStretch();
 
-
     //CommandBox
-    QSplitter *scriptEditorSplitter = new QSplitter;
-
     scriptEditorSplitter->addWidget(commandList);
     scriptEditorSplitter->addWidget(editor);
     scriptEditorSplitter->setSizes({75,250});
 
-    //add the rig command code if it's clicked
-    newcommand = new NewCommand(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout(container);
 
+    mainLayout->addLayout(headerLayout);
+    mainLayout->addWidget(buttonbar);
+    mainLayout->addWidget(scriptEditorSplitter);
+
+    container->setLayout(mainLayout);
+    this->setWidget(container);
+
+
+    //---------------------- COMMAND LIST -----------------------------
     QDir dir(Config::riggingCommandsPath);
 
     connect(commandList, &CommandList::commandSelected, editor, [=](const QString &text) {
@@ -120,28 +139,9 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
         editor->appendPlainText(text);
     });
 
-    //edit command
-    editcommand = new EditCommand(this);
 
 
-    // Main Layout inside container widget
-    QVBoxLayout *mainLayout = new QVBoxLayout(container);
-
-    //mainlayout
-    mainLayout->addLayout(headerLayout);
-    mainLayout->addWidget(buttonbar);
-    mainLayout->addWidget(scriptEditorSplitter);
-
-
-    container->setLayout(mainLayout);
-    this->setWidget(container);
-
-
-    //add highlighter
-    highlighter = new Highlighter(editor->document());
-
-
-    //--------------------STYLE -----------------------
+    //------------------------------- STYLE -------------------------------
     container->setStyleSheet(Style::containerStyle);
 
     //buttons
