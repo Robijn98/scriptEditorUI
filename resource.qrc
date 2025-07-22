@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/new/icons">
-        <file>icons/checkmark.png</file>
-        <file>icons/copy.png</file>
-        <file>icons/cut.png</file>
-    </qresource>
-</RCC>

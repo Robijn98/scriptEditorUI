@@ -9,24 +9,52 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/ui")
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+set(UI_FILES
+    ui/buttonBar.ui
+    ui/commandList.ui
+    # Add all other .ui files
+)
+
 set(PROJECT_SOURCES
-    main.cpp
-    mainWindow.cpp
-    mainWindow.h
-    mainWindow.ui
-    highlighter.cpp
-    highlighter.h
-    lineNumber.cpp
-    lineNumber.h
-    lineNumber.ui
-    scriptEditor.cpp
-    scriptEditor.h
-    scriptEditor.ui
-    scriptEditorPanel.cpp
-    scriptEditorPanel.h
-    scriptEditorPanel.ui
+
+    src/main.cpp
+    src/mainWindow.cpp
+    include/mainWindow.h
+    ui/mainWindow.ui
+    src/highlighter.cpp
+    include/highlighter.h
+    src/lineNumber.cpp
+    include/lineNumber.h
+    ui/lineNumber.ui
+    src/scriptEditor.cpp
+    include/scriptEditor.h
+    ui/scriptEditor.ui
+    src/scriptEditorPanel.cpp
+    include/scriptEditorPanel.h
+    ui/scriptEditorPanel.ui
+    src/buttonBar.cpp
+    include/buttonBar.h
+    ui/buttonBar.ui
+    src/commandList.cpp
+    include/commandList.h
+    ui/commandList.ui
+    src/editCommand.cpp
+    include/editCommand.h
+    ui/editCommand.ui
+    src/newCommand.cpp
+    include/newCommand.h
+    ui/newCommand.ui
+    src/searchAndReplace.cpp
+    include/searchAndReplace.h
+    ui/searchAndReplace.ui
+
 
 )
 
@@ -50,22 +78,11 @@ else()
     else()
         add_executable(ScriptEditor
             ${PROJECT_SOURCES}
-
-            scripteditorpanel.h scripteditorpanel.cpp scripteditorpanel.ui
-            highlighter.h highlighter.cpp
-            linenumber.h linenumber.cpp linenumber.ui
-            scripteditor.h scripteditor.cpp scripteditor.ui
-            commandlist.h commandlist.cpp commandlist.ui
-            newcommand.h newcommand.cpp newcommand.ui
-            editCommand.h editCommand.cpp
-            editCommand.ui
-            config.h
-            style.h
-
+            include/buttonBar.h include/commandList.h include/config.h include/editCommand.h include/editFile.h include/highlighter.h include/linenumber.h include/mainWindow.h include/newCommand.h include/scriptEditor.h include/scriptEditorPanel.h include/searchAndReplace.h include/style.h
+            src/buttonBar.cpp src/commandList.cpp src/editCommand.cpp src/editFile.cpp src/highlighter.cpp src/lineNumber.cpp src/main.cpp src/mainWindow.cpp src/newCommand.cpp src/scriptEditor.cpp src/scriptEditorPanel.cpp src/searchAndReplace.cpp
+            ui/buttonBar.ui ui/commandList.ui ui/editCommand.ui ui/form.ui ui/lineNumber.ui ui/mainWindow.ui ui/newCommand.ui ui/scriptEditor.ui ui/scriptEditorPanel.ui ui/searchAndReplace.ui
             resources.qrc
-            buttonBar.h buttonBar.cpp buttonBar.ui
-            editFile.h editFile.cpp
-            searchAndReplace.h searchAndReplace.cpp searchAndReplace.ui
+            #src/ui/buttonBar.ui src/ui/commandList.ui src/ui/editCommand.ui src/ui/form.ui src/ui/lineNumber.ui src/ui/mainWindow.ui src/ui/newCommand.ui src/ui/scriptEditor.ui src/ui/scriptEditorPanel.ui src/ui/searchAndReplace.ui
 
         )
     endif()
