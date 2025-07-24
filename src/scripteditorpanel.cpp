@@ -28,6 +28,9 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     newcommand = new NewCommand(this);
     editcommand = new EditCommand(this);
     highlighter = new Highlighter(editor->document());
+    // opentemplate = new OpenTemplate(editor);
+    newtemplate = new NewTemplate();
+    edittemplate = new EditTemplate();
 
     QSplitter *scriptEditorSplitter = new QSplitter;
 
@@ -82,13 +85,13 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     templateButton->setMenu(templateMenu);
     templateButton->setPopupMode(QToolButton::InstantPopup);
 
-    templateMenu->addAction("Load Template", this, &ScriptEditorPanel::temp);
+    templateMenu->addAction("Load Template", this, &ScriptEditorPanel::openTemplate);
 
-    templateMenu->addAction("Add Template", this, &ScriptEditorPanel::temp);
+    templateMenu->addAction("Add Template", this, &ScriptEditorPanel::newTemplate);
 
-    templateMenu->addAction("Edit Template", this, &ScriptEditorPanel::temp);
+    templateMenu->addAction("Edit Template", this, &ScriptEditorPanel::editTemplate);
 
-    templateMenu->addAction("Remove Template", this, &ScriptEditorPanel::temp);
+    templateMenu->addAction("Remove Template", this, &ScriptEditorPanel::removeTemplate);
 
 
     //---------------------- LAYOUT -----------------------------
@@ -140,7 +143,6 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     });
 
 
-
     //------------------------------- STYLE -------------------------------
     container->setStyleSheet(Style::containerStyle);
 
@@ -163,7 +165,6 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
 }
 
 
-
 void ScriptEditorPanel::temp()
 {
     std::cout<<"temporary defintion/n";
@@ -183,4 +184,37 @@ void ScriptEditorPanel::editCommand()
     editcommand->show();
     editcommand->raise();
     editcommand->setFocus();
+}
+
+void ScriptEditorPanel::openTemplate()
+{
+    OpenTemplate* opentemplate = new OpenTemplate(editor, TemplateMode::Load);
+    opentemplate->loadList();
+    opentemplate->show();
+    opentemplate->raise();
+    opentemplate->setFocus();
+}
+
+void ScriptEditorPanel::newTemplate()
+{
+    newtemplate->show();
+    newtemplate->raise();
+    newtemplate->setFocus();
+}
+
+void ScriptEditorPanel::editTemplate()
+{
+
+    edittemplate->show();
+    edittemplate->raise();
+    edittemplate->setFocus();
+}
+
+void ScriptEditorPanel::removeTemplate()
+{
+    OpenTemplate* opentemplate = new OpenTemplate(editor, TemplateMode::Remove);
+    opentemplate->loadList();
+    opentemplate->show();
+    opentemplate->raise();
+    opentemplate->setFocus();
 }

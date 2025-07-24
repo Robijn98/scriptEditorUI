@@ -6,6 +6,7 @@
 
 #include "editFile.h"
 #include "searchAndReplace.h"
+#include "editTemplate.h"
 
 namespace Ui {
 class ButtonBar;
@@ -29,10 +30,13 @@ private slots:
 
     void on_searchAndReplaceButton_clicked();
 
+    void on_templateButton_clicked();
+
 private:
     Ui::ButtonBar *ui;
     EditFile *editfile;
     SearchAndReplace *searchandreplace;
+    EditTemplate *edittemplate;
 
 };
 

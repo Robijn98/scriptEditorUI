@@ -16,6 +16,7 @@ ButtonBar::ButtonBar(CodeEditor* editor, QWidget *parent) :
     editfile = new EditFile(editor);
 
     searchandreplace = new SearchAndReplace(editor);
+    edittemplate = new EditTemplate();
 
 }
 
@@ -45,3 +46,11 @@ void ButtonBar::on_searchAndReplaceButton_clicked()
     searchandreplace->setFocus();
 
 }
+
+void ButtonBar::on_templateButton_clicked()
+{
+    edittemplate->show();
+    edittemplate->raise();
+    edittemplate->setFocus();
+}
+

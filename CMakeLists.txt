@@ -54,7 +54,15 @@ set(PROJECT_SOURCES
     src/searchAndReplace.cpp
     include/searchAndReplace.h
     ui/searchAndReplace.ui
-
+    src/openTemplate.cpp
+    include/openTemplate.h
+    ui/openTemplate.ui
+    src/newTemplate.cpp
+    include/newTemplate.h
+    ui/newTemplate.ui
+    include/editTemplate.h
+    src/editTemplate.cpp
+    ui/editTemplate.ui
 
 )
 
@@ -82,7 +90,9 @@ else()
             src/buttonBar.cpp src/commandList.cpp src/editCommand.cpp src/editFile.cpp src/highlighter.cpp src/lineNumber.cpp src/main.cpp src/mainWindow.cpp src/newCommand.cpp src/scriptEditor.cpp src/scriptEditorPanel.cpp src/searchAndReplace.cpp
             ui/buttonBar.ui ui/commandList.ui ui/editCommand.ui ui/form.ui ui/lineNumber.ui ui/mainWindow.ui ui/newCommand.ui ui/scriptEditor.ui ui/scriptEditorPanel.ui ui/searchAndReplace.ui
             resources.qrc
-            #src/ui/buttonBar.ui src/ui/commandList.ui src/ui/editCommand.ui src/ui/form.ui src/ui/lineNumber.ui src/ui/mainWindow.ui src/ui/newCommand.ui src/ui/scriptEditor.ui src/ui/scriptEditorPanel.ui src/ui/searchAndReplace.ui
+            include/openTemplate.h src/openTemplate.cpp ui/openTemplate.ui
+            include/newTemplate.h src/newTemplate.cpp ui/newTemplate.ui
+            include/editTemplate.h src/editTemplate.cpp ui/editTemplate.ui
 
         )
     endif()

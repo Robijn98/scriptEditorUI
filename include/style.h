@@ -49,6 +49,10 @@ public:
         "selection-background-color: #f5a9d6;";
 
     inline static QString listStyle =
+        "QListWidget {"
+        "color:#fff5fb;"
+        "background-color:#1f1f1f;"
+        "}"
         "QListWidget::item:selected {"
         " background: #eb46a9;"
         " border: 1px solid #eb46a9;"

@@ -137,7 +137,7 @@ void CommandList::clearItemsManually()
 void CommandList::refreshList()
 {
     clearItemsManually();
-    //HARD-CODED REPLACE FIX
+
     QDir dir(Config::riggingCommandsPath);
     std::list<QString> commandList;
 

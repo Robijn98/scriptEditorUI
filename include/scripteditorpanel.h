@@ -7,6 +7,9 @@
 #include "editCommand.h"
 #include "buttonBar.h"
 #include "editFile.h"
+#include "openTemplate.h"
+#include "newTemplate.h"
+#include "editTemplate.h"
 
 #include <QDockWidget>
 #include <QTextEdit>
@@ -24,6 +27,10 @@ private slots:
     void temp();
     void newCommand();
     void editCommand();
+    void openTemplate();
+    void newTemplate();
+    void editTemplate();
+    void removeTemplate();
 
 private:
     CodeEditor *editor;
@@ -33,7 +40,9 @@ private:
     EditCommand *editcommand;
     ButtonBar *buttonbar;
     EditFile *editfile;
-
+    OpenTemplate *opentemplate;
+    NewTemplate *newtemplate;
+    EditTemplate *edittemplate;
 };
 
 

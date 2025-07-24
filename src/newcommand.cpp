@@ -24,11 +24,9 @@ NewCommand::NewCommand(QWidget *parent) :
 
     //style settings
     this->setWindowTitle("New rigging command");
-    this->setStyleSheet(
-        "color:#fff5fb;"
-        "background-color:#1f1f1f;"
 
-        );
+    this->setStyleSheet(Style::containerStyle);
+
     ui->cancelButton->setStyleSheet(Style::buttonStyle);
 
     ui->saveButton->setStyleSheet(Style::buttonStyle);

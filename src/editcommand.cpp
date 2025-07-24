@@ -32,7 +32,6 @@ EditCommand::~EditCommand()
 
 void EditCommand::on_browseButton_clicked()
 {
-
     QString fileName = QFileDialog::getOpenFileName(this, "Open File", Config::riggingCommandsPath, "All Files (*.*)");
     if (!fileName.isEmpty()) {
         ui->label->setText(fileName);
