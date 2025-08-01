@@ -3,10 +3,12 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QToolButton>
+#include <QTabWidget>
 
 #include "editFile.h"
 #include "searchAndReplace.h"
 #include "editTemplate.h"
+#include "tabScriptEditor.h"
 
 namespace Ui {
 class ButtonBar;
@@ -17,7 +19,8 @@ class ButtonBar : public QWidget
     Q_OBJECT
 
 public:
-    explicit ButtonBar(CodeEditor* editor, QWidget *parent = nullptr);
+    ButtonBar(TabScriptEditor* tabEditor, QWidget *parent = nullptr);
+
     ~ButtonBar();
 
 
@@ -37,6 +40,8 @@ private:
     EditFile *editfile;
     SearchAndReplace *searchandreplace;
     EditTemplate *edittemplate;
-
+    QTabWidget* tabWidget;
+    CodeEditor* currentEditor() const;
+    TabScriptEditor* tabEditor;
 };
 

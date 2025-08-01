@@ -64,6 +64,9 @@ set(PROJECT_SOURCES
     src/editTemplate.cpp
     ui/editTemplate.ui
 
+    include/tabScriptEditor.h
+    src/tabScriptEditor.cpp
+
 )
 
 
@@ -93,6 +96,7 @@ else()
             include/openTemplate.h src/openTemplate.cpp ui/openTemplate.ui
             include/newTemplate.h src/newTemplate.cpp ui/newTemplate.ui
             include/editTemplate.h src/editTemplate.cpp ui/editTemplate.ui
+            include/tabScriptEditor.h src/tabScriptEditor.cpp
 
         )
     endif()

@@ -3,27 +3,23 @@
 
 #pragma once
 
-#include <QWidget>
-#include <QApplication>
-#include <QFileDialog>
-#include <QTextStream>
+#include <QObject>
+#include <QTabWidget>
 
-#include "scriptEditor.h"
+#include "tabScriptEditor.h"
 
-class EditFile : public QObject
-{
+class EditFile : public QObject {
     Q_OBJECT
-
 public:
-    EditFile(CodeEditor* editor, QObject *parent = nullptr);
-
+    EditFile(TabScriptEditor* tabEditor, QObject* parent = nullptr);
     void newFile();
     void openFile();
     void saveFile();
     void exitApp();
 
 private:
-    CodeEditor *editor;
+    TabScriptEditor* tabEditor;
 };
+
 
 #endif // EDITFILE_H

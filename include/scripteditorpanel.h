@@ -10,6 +10,7 @@
 #include "openTemplate.h"
 #include "newTemplate.h"
 #include "editTemplate.h"
+#include "tabScriptEditor.h"
 
 #include <QDockWidget>
 #include <QTextEdit>
@@ -24,7 +25,7 @@ public:
     explicit ScriptEditorPanel(QWidget *parent = nullptr);
 
 private slots:
-    void temp();
+    //void temp();
     void newCommand();
     void editCommand();
     void openTemplate();
@@ -34,7 +35,6 @@ private slots:
 
 private:
     CodeEditor *editor;
-    Highlighter *highlighter;
     CommandList *commandList;
     NewCommand *newcommand;
     EditCommand *editcommand;
@@ -43,6 +43,11 @@ private:
     OpenTemplate *opentemplate;
     NewTemplate *newtemplate;
     EditTemplate *edittemplate;
+    QTabWidget* tabWidget;
+    CodeEditor* currentEditor() const;
+    TabScriptEditor *tabEditor;
+
+
 };
 
 
