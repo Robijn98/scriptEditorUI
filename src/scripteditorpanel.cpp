@@ -84,7 +84,17 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     templateMenu->addAction("Edit Template", this, &ScriptEditorPanel::editTemplate);
     templateMenu->addAction("Remove Template", this, &ScriptEditorPanel::removeTemplate);
 
-    // Layout
+
+    //--------------------------TAB MENU ---------------------------------------------------
+    QToolButton *tabButton = new QToolButton();
+    tabButton->setText("tabs");
+    QMenu *tabMenu = new QMenu();
+    tabButton->setMenu(tabMenu);
+    tabButton->setPopupMode(QToolButton::InstantPopup);
+
+    tabMenu->addAction("split screen",tabEditor ,&TabScriptEditor::splitEditor);
+
+    // Layout ---------------------------------------------------------------------------
     fileButton->setMinimumWidth(80);
     commandButton->setMinimumWidth(80);
     templateButton->setMinimumWidth(80);
@@ -92,6 +102,7 @@ ScriptEditorPanel::ScriptEditorPanel(QWidget *parent)
     headerLayout->addWidget(fileButton);
     headerLayout->addWidget(commandButton);
     headerLayout->addWidget(templateButton);
+    headerLayout->addWidget(tabButton);
     headerLayout->addStretch();
 
     // Editor Splitter Layout
